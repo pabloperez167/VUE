@@ -11,14 +11,14 @@
              {{ item.name }} - <span :style="{ color: item.piloto ? 'white' : 'orange' }">
             {{ item.piloto || 'null' }}</span>
             <button class="delete-button" @click="deletePiloto(item)">Eliminar Piloto</button>
-        </li>
+        </li>   
       </ul>
     </div>
   </template>
 
 <style>
 .delete-button {
-  float: righ
+  float: right
 }
 </style>
   
