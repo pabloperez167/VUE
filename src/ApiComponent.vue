@@ -35,7 +35,7 @@
     },
     methods: {
       fetchData() {
-        fetch('http://127.0.0.1:8000/api/Starship')
+        fetch('http://127.0.0.1:8000/api/starship')
           .then(response => response.json())
           
           .then(data => {
