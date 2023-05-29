@@ -74,20 +74,20 @@ export default {
     },
     addPilot(starshipId, pilotId) {
       fetch(`http://127.0.0.1:8000/api/addPilot/${starshipId}/${pilotId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    method: 'PUT',
   })
+  
   .then(response => response.json())
   .then(data => {
     console.log(data.message); // Mensaje de respuesta del servidor
-    // Aquí puedes actualizar la lista de naves espaciales o realizar otras acciones necesarias
+     // Actualiza la pagina con el piloto agregado
+     this.fetchData();
   })
   .catch(error => {
     console.error('Error al agregar el piloto:', error);
   });
     },
+
 
     deletePiloto(starshipId) {
       fetch(`http://127.0.0.1:8000/api/deletePilot/${starshipId}`, {
@@ -106,84 +106,6 @@ export default {
   },
 };
 
-/*export default {
-  
-  data() {
-    return {
-      items: [],
-    };
-  },
-  
-  methods: {
-    fetchData() {
-      fetch('http://127.0.0.1:8000/api/starship')
-        .then(response => response.json())
-
-        .then(data => {
-          this.items = data;
-        })
-
-        .catch(error => {
-          console.error('Error al obtener los datos:', error);
-        });
-
-    },
-
-    fetchPilot() {
-      fetch('http://127.0.0.1:8000/api/pilots')
-        .then(response => response.json())
-
-        .then(data => {
-          this.pilots = data;
-        })
-
-        .catch(error => {
-          console.error('Error al obtener los datos:', error);
-        });
-
-    },
-
-    computed: {
-    filteredPilots() {
-      return this.pilots.filter(item => item.id);
-    },
-  },
-
-    deletePiloto(starshipId) {
-      fetch(`http://127.0.0.1:8000/api/deletePilot/${starshipId}`, {
-        method: 'PUT'
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.message);
-          // Actualizar la lista de items después de eliminar el piloto
-          this.fetchData();
-        })
-        .catch(error => {
-          console.error('Error al eliminar el piloto:', error);
-        });
-    },
-
-    addPilot(starshipId, pilotId) {
-  fetch(`http://127.0.0.1:8000/api/addPilot/${starshipId}/${pilotId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message); // Mensaje de respuesta del servidor
-    // Aquí puedes actualizar la lista de naves espaciales o realizar otras acciones necesarias
-  })
-  .catch(error => {
-    console.error('Error al agregar el piloto:', error);
-  });
-},
-
-
-
-  },*/
 
 </script>
 
