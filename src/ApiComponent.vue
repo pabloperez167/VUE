@@ -9,13 +9,13 @@
             <ul>
               <li v-for="item in items" :key="item.id">
                 {{ item.name }} - <span :style="{ color: item.piloto ? 'green' : 'orange' }">
-                  {{ item.piloto || 'null' }}</span>
+                  {{ item.piloto || 'null' }}</span> - Coste: {{ item.coste!=0 ? convertToBase15(item.coste) : 0 }}
                 <div>
                   <select  v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
                   </select>
                   <button @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
-                  <button @click="deletePiloto(item.id)">Eliminar Piloto</button>
+                  <button @click="deletePiloto(item.id)">Eliminar Piloto</button>                  
                 </div>
               </li>
             </ul>
@@ -103,9 +103,28 @@ export default {
           console.error('Error al eliminar el piloto:', error);
         });
     },
-  },
-};
 
+    //la función convertToBase15 toma el precio de la nave como entrada
+    // y realiza la conversión a base 15 utilizando un bucle while. Luego la llamamos en la parte de arriba con el item.coste
+
+    convertToBase15(price) {
+  const symbols = [
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ß', 'Þ', '¢', 'μ', '¶'
+  ];
+
+  let base15 = '';
+
+  while (price > 0) {
+    const remainder = price % 15;
+    base15 = symbols[remainder] + base15;
+    price = Math.floor(price / 15);
+  }
+
+  return base15;
+  }
+  },
+
+};
 
 </script>
 
