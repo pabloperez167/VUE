@@ -8,20 +8,19 @@
             <button @click="fetchData">Cargar datos</button>
             <ul>
               <li v-for="item in items" :key="item.id">
-                {{ item.name }} - <span :style="{ color: item.piloto ? 'green' : 'orange' }">
-                  {{ item.piloto || 'null' }}</span> - Coste: {{ item.coste!=0 ? convertToBase15(item.coste) : 0 }}
+              {{ item.name }} - <span :style="{ color: item.pilotos ? 'green' : 'orange' }">
+              {{ item.pilotos ? item.pilotos : 'null' }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
                 <div>
-                  <select  v-model="selectedPilot">
+                  <button @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
+                  <button @click="deletePiloto(item.id, selectedPilot)">Eliminar Piloto</button>                  
+                </div>
+                <select  v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
                   </select>
-                  <button @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
-                  <button @click="deletePiloto(item.id)">Eliminar Piloto</button>                  
-                </div>
               </li>
             </ul>
           </div>
-        </template>
-        
+        </template>    
 
 <style>
 .delete-button{
@@ -89,8 +88,8 @@ export default {
     },
 
 
-    deletePiloto(starshipId) {
-      fetch(`http://127.0.0.1:8000/api/deletePilot/${starshipId}`, {
+    deletePiloto(starshipId, pilotId) {
+      fetch(`http://127.0.0.1:8000/api/deletePilot/${starshipId}/${pilotId}`, {
         method: 'PUT'
       })
         .then(response => response.json())
