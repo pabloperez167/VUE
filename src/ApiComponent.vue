@@ -1,3 +1,4 @@
+
 <!--Con este código, al ejecutar tu aplicación Vue y hacer clic en el botón "Cargar datos",
      se realizará la solicitud a tu API y los datos obtenidos se mostrarán en forma de lista en la interfaz de usuario.-->
 
@@ -5,7 +6,7 @@
         el color del texto será blanco ('white'), de lo contrario, si item.piloto es null, el color del texto será naranja ('orange').-->
         <template>
           <div>
-            <button @click="fetchData">Cargar datos</button>
+            <button class="btn btn-primary" @click="fetchData">Cargar datos</button>
             <ul>
               <li v-for="item in items" :key="item.id">
               {{ item.name }} - <span :style="{ color: item.pilotos ? 'green' : 'orange' }">
@@ -22,20 +23,13 @@
           </div>
         </template>    
 
-<style>
-.delete-button{
-  float: right;
-}
-
-
-
-</style>
   
 
   <!--Cuando la respuesta de la API se recibe correctamente, se llama al método json() en el objeto response 
     para obtener los datos en formato JSON. Luego, los datos obtenidos se asignan a la propiedad items del componente Vue, 
     lo que actualiza la lista en la plantilla y muestra los datos en la interfaz de usuario.-->
 <script>
+import '@/assets/estilos.css';
 export default {
   data() {
     return {
@@ -81,6 +75,7 @@ export default {
     console.log(data.message); // Mensaje de respuesta del servidor
      // Actualiza la pagina con el piloto agregado
      this.fetchData();
+     
   })
   .catch(error => {
     console.error('Error al agregar el piloto:', error);
@@ -128,4 +123,10 @@ export default {
 </script>
 
   
-  
+  <style>
+
+
+.fetchData{
+background-color: aqua;
+}
+</style>
