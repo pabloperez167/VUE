@@ -1,9 +1,4 @@
-<!--<template>
-  <div>
-    <h1>Consumir API con Vue</h1>
-    <api-component></api-component>
-  </div>
-</template>-->
+
 
 <script>
 import ApiComponent from './ApiComponent.vue';
@@ -19,25 +14,14 @@ export default {
       <div class="stars"></div>
       <div class="ship"><img src="src/assets/nave2.png" alt="Nave espacial" /></div> 
         <div class="container">
-          <h1 style="color: gold;">Star Wars API </h1>
-          <ApiComponent style="margin-left: 2%;"></ApiComponent>
+          <h1 style="color: gold;">Star Wars api </h1>
+          <ApiComponent style="margin-left: 2%; margin-top: 2%;"></ApiComponent>
         </div>
         
 </template>
 
 
 <style>
-
-.api-container {
-  margin-top: 20px;
-  position: relative; /* Agrega esta línea para que el contenido sea posicionado de forma relativa */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Estilos originales */
 
 .container {
   position: relative; /* Agrega esta línea para que el contenido sea posicionado de forma relativa */
@@ -48,19 +32,7 @@ export default {
   overflow: hidden;
 }
 
-/* Estilos para el fondo de estrellas */
 
-.stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 370vh;
-  z-index: 0; /* Cambia el valor a 0 para que el fondo de estrellas esté detrás del contenido */
-  pointer-events: none;
-  background: url('C:\Users\pplim\OneDrive\Escritorio\ApiRest_Laravel\vue-project\src\assets\space.jpg');
-  animation: starsAnimation 100s linear infinite;
-}
 
 @keyframes starsAnimation {
   0% {
@@ -90,7 +62,6 @@ export default {
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
-
 
 </style>
 

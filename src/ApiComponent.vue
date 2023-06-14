@@ -1,16 +1,14 @@
 
 <!--Con este código, al ejecutar tu aplicación Vue y hacer clic en el botón "Cargar datos",
      se realizará la solicitud a tu API y los datos obtenidos se mostrarán en forma de lista en la interfaz de usuario.-->
-
-     <!--si item.piloto tiene un valor distinto de null (es decir, un piloto válido), 
-        el color del texto será blanco ('white'), de lo contrario, si item.piloto es null, el color del texto será naranja ('orange').-->
+      
         <template>
           <div>
             <button class="btn btn-primary" @click="fetchData">Cargar datos</button>
-            <ul>
-              <li v-for="item in items" :key="item.id">
-              {{ item.name }} - <span :style="{ color: item.pilotos ? 'green' : 'orange' }">
-              {{ item.pilotos ? item.pilotos : 'null' }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
+            <ul class="listado">
+              <li class='seccion' v-for="item in items" :key="item.id">
+              {{ item.name }} - <span :style="{ color: 'green' }">
+              {{ item.pilotos }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
                 <div>
                   <button @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
                   <button @click="deletePiloto(item.id, selectedPilot)">Eliminar Piloto</button>                  
@@ -21,8 +19,7 @@
               </li>
             </ul>
           </div>
-        </template>    
-
+        </template> 
   
 
   <!--Cuando la respuesta de la API se recibe correctamente, se llama al método json() en el objeto response 
@@ -50,7 +47,7 @@ export default {
         .catch(error => {
           console.error('Error al obtener los datos:', error);
         });
-      this.fetchPilots();
+        this.fetchPilots();
     },
     fetchPilots() {
       fetch('http://127.0.0.1:8000/api/pilots')
@@ -122,11 +119,15 @@ export default {
 
 </script>
 
-  
-  <style>
-
-
-.fetchData{
-background-color: aqua;
+<style>
+.listado{
+  margin-top: 5%;
 }
+
+.seccion{
+  margin-top: 5%;
+  color: gold;
+}
+
+
 </style>
