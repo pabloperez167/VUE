@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 
 import { createApp } from 'vue'
 import App from './App.vue'
+createApp(App).mount('#app')
 
 // Importa la fuente de Star Wars Font
 import StarWarsFont from './assets/soloist/soloist.ttf';
@@ -22,4 +23,4 @@ document.head.appendChild(starWarsFontStyle);
 
 
 
-createApp(App).mount('#app')
+

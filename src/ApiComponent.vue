@@ -10,12 +10,15 @@
               {{ item.name }} - <span :style="{ color: 'green' }">
               {{ item.pilotos }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
                 <div>
-                  <button @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
-                  <button @click="deletePiloto(item.id, selectedPilot)">Eliminar Piloto</button>                  
+                  <button class="btn btn-secondary" @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
+                  <button class="btn btn-danger" @click="deletePiloto(item.id, selectedPilot)">Eliminar Piloto</button>                  
                 </div>
-                <select  v-model="selectedPilot">
+                <select v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
-                  </select>
+                </select>
+                <div class="pilotos">
+                  <img v-for="pilot in item.pilotos" :key="pilot.id" :src="'data:image/jpeg;base64,' + pilot.foto" alt="Foto del piloto" />
+                </div>
               </li>
             </ul>
           </div>
