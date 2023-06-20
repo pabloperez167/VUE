@@ -16,9 +16,10 @@
                 <select v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
                 </select>
-                <div class="pilotos">
-                  <img v-for="pilot in item.pilotos" :key="pilot.id" :src="'data:image/jpeg;base64,' + pilot.foto" alt="Foto del piloto" />
+                <div v-for="piloto in pilots" :key="piloto.id">
+                  <img class="pilotos" v-if="item.pilotos.includes(piloto.name)" :src="`/src/assets/pilots/${piloto.name}.jpeg`" />
                 </div>
+
               </li>
             </ul>
           </div>
@@ -65,21 +66,28 @@ export default {
         });
       
     },
+
+    encodeNamesToUtf8($pilot)
+    {
+        return utf8_encode($pilot.name);
+    },
+
     addPilot(starshipId, pilotId) {
       fetch(`http://127.0.0.1:8000/api/addPilot/${starshipId}/${pilotId}`, {
     method: 'PUT',
   })
-  
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message); // Mensaje de respuesta del servidor
-     // Actualiza la pagina con el piloto agregado
-     this.fetchData();
-     
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message); // Mensaje de respuesta del servidor
+        // Actualiza la pagina con el piloto agregado
+        this.fetchData();
+        
+      })
+      .catch(error => {
+        console.error('Error al agregar el piloto:', error);
   })
-  .catch(error => {
-    console.error('Error al agregar el piloto:', error);
-  });
+  
+
     },
 
 
@@ -120,6 +128,8 @@ export default {
 
 };
 
+
+
 </script>
 
 <style>
@@ -132,5 +142,11 @@ export default {
   color: gold;
 }
 
+.pilotos{
+  width: 15%;
+  margin-top: 1%;
+  height: 15%;
+
+}
 
 </style>
