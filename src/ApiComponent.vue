@@ -7,6 +7,9 @@
             <button class="btn btn-primary" @click="fetchData">Cargar datos</button>
             <ul class="listado">
               <li class='seccion' v-for="item in items" :key="item.id">
+                <div class="nave">
+                  <img class="nave" :src="`/src/assets/naves/${item.name}.png`" onerror="this.src='/src/assets/naves/default.png'; this.style.height='40px'; this.style.width='40px';"/>
+                </div>  
               {{ item.name }} - <span :style="{ color: 'green' }">
               {{ item.pilotos }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
                 <div>
@@ -16,7 +19,7 @@
                 <select v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
                 </select>
-                <div v-for="piloto in pilots" :key="piloto.id">
+                <div class="pilotos" v-for="piloto in pilots" :key="piloto.id">
                   <img class="pilotos" v-if="item.pilotos.includes(piloto.name)" :src="`/src/assets/pilots/${piloto.name}.jpeg`" />
                 </div>
 
@@ -67,10 +70,6 @@ export default {
       
     },
 
-    encodeNamesToUtf8($pilot)
-    {
-        return utf8_encode($pilot.name);
-    },
 
     addPilot(starshipId, pilotId) {
       fetch(`http://127.0.0.1:8000/api/addPilot/${starshipId}/${pilotId}`, {
@@ -143,10 +142,15 @@ export default {
 }
 
 .pilotos{
-  width: 15%;
+  width: 35%;
   margin-top: 1%;
-  height: 15%;
+  height: 35%;
 
+}
+
+.nave{
+  width: 50%;
+  height: 50%;
 }
 
 </style>
