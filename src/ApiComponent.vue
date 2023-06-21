@@ -14,14 +14,19 @@
               {{ item.pilotos }}</span> - Coste: {{ item.coste != 0 ? convertToBase15(item.coste) : 0 }}
                 <div>
                   <button class="btn btn-secondary" @click="addPilot(item.id, selectedPilot)">Agregar Piloto</button>
-                  <button class="btn btn-danger" @click="deletePiloto(item.id, selectedPilot)">Eliminar Piloto</button>                  
+                  <button class="btn btn-danger" @click="deletePiloto(item.id, selectedPilot)">Desasociar Piloto</button>         
+                  <button class="btn btn-danger" @click="eliminarPiloto(item.id,selectedPilot)">Eliminar Piloto</button>  
+                  <button class= "btn btn-secondary" style="margin-left: 15px;" @click="crearPilotoBtn()">Crear Piloto</button>         
                 </div>
                 <select v-model="selectedPilot">
                     <option v-for="pilot in pilots" :key="pilot.id" :value="pilot.id">{{ pilot.name }}</option>
                 </select>
                 <div class="pilotos" v-for="piloto in pilots" :key="piloto.id">
-                  <img class="pilotos" v-if="item.pilotos.includes(piloto.name)" :src="`/src/assets/pilots/${piloto.name}.jpeg`" />
+                  <img class="pilotos" v-if="item.pilotos.includes(piloto.name)" :src="`/src/assets/pilots/${piloto.name}.jpeg`"
+                    onerror="this.src='/src/assets/pilots/default.png'" />
                 </div>
+
+
 
               </li>
             </ul>
@@ -89,9 +94,47 @@ export default {
 
     },
 
+    crearPilotoBtn() {
+      const nombrePiloto = prompt('Ingrese el nombre del piloto'); // Obtener el nombre del piloto mediante un cuadro de diálogo
+      
+      fetch('http://127.0.0.1:8000/api/pilotos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: nombrePiloto })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message); // Mensaje de respuesta del servidor
+          // Actualizar la página con el piloto agregado
+          this.fetchData();
+        })
+        .catch(error => {
+          console.error('Error al agregar el piloto:', error);
+        });
+      
+
+    },
+
 
     deletePiloto(starshipId, pilotId) {
       fetch(`http://127.0.0.1:8000/api/deletePilot/${starshipId}/${pilotId}`, {
+        method: 'PUT'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message);
+          // Actualizar la lista de items después de eliminar el piloto
+          this.fetchData();
+        })
+        .catch(error => {
+          console.error('Error al eliminar el piloto:', error);
+        });
+    },
+
+    eliminarPiloto(starshipId,pilotId) {
+      fetch(`http://127.0.0.1:8000/api/eliminarPiloto/${starshipId}/${pilotId}`, {
         method: 'PUT'
       })
         .then(response => response.json())
@@ -151,6 +194,11 @@ export default {
 .nave{
   width: 50%;
   height: 50%;
+}
+
+.btn-danger{
+  margin-left: 15px;
+
 }
 
 </style>
